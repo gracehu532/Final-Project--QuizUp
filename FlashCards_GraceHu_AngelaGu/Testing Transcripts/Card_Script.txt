@@ -1,0 +1,55 @@
+Welcome to DrJava.  Working directory is /Users/gracehu/Desktop/grace version
+> run Card
+
+Here is a new card:
+
+***** Information About the Card *****
+Question: Bonjour
+Answer: Hello
+Response: 
+Probability: 1.0
+**************************************
+
+Is this a true and false question? (FALSE): false
+Now we assume that the user has entered the correct answer.
+The probability should be lower. 0.25
+Now we assume that the user has entered the incorrect answer.
+The probability should stay the same. 0.25
+Now we assume that the user has entered the incorrect answer.
+The probability should stay the same. 0.25
+
+Here is a new card:
+
+***** Information About the Card *****
+Question: Guten Tag
+Answer: Hello
+Response: 
+Probability: 1.0
+**************************************
+
+Is this a true and false question? (FALSE): false
+Now we assume that the user has entered the correct answer.
+The probability should be lower. 0.43
+Now we assume that the user has entered the incorrect answer.
+The probability should stay the same. 0.43
+The probability should stay the same. 0.43
+The probability of first card is less than the probability of the second.
+
+Here is a new card:
+
+***** Information About the Card *****
+Question: Is D4 a finite abelian group?
+Answer: false
+Response: 
+Probability: 1.0
+**************************************
+
+Is this a true and false question? (TRUE): true
+Now we assume that the user has entered the incorrect answer.
+The probability should stay the same. 1.0
+Now we assume that the user has entered the correct answer.
+The probability should be lower. 0.33
+Now we assume that the user has entered the correct answer.
+The probability should be lower. 0.1353
+The probability of first card is larger than the probability of the second.
+> 

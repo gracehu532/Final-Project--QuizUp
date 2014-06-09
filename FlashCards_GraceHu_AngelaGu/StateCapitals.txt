@@ -1,0 +1,11 @@
+StateCapitals
+What is the capital of California?
+Sacramento
+Boston the capital of Massachussettes.
+True
+Albany is the capital of New York.
+True
+What is the capital of Texas?
+Austin
+New York is the capital of New York.
+False

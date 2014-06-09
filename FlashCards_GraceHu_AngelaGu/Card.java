@@ -1,0 +1,248 @@
+/********************************************************************
+  * FILENAME:  Card.java  
+  * WHO:  Angela Gu and Grace Hu
+  * WHEN:  May 11, 2014
+  ********************************************************************/
+/*********************************************************************
+  * The Card class creates a Card object, which has the following characteristics:
+  * a question, answer, probability, and type of question. The probability indicates 
+  * whether that specific card should appear again in the testing deck of the Deck class.
+  * We also check the answer to determine whether the question is a true/false question.
+  * We want to know this so that we can provide multiple user interfaces in our GUI
+  * depending on the type of question.
+  * ********************************************************************/
+
+
+import java.util.*;
+
+public class Card implements Comparable<Card> {
+  private String question;
+  private String answer;
+  private String user_answer;
+  private boolean tfquestion; //whether the question is a true or false question
+  private double probability;
+  private final double MAX = 1.0; //the highest probability possible
+  
+    /*****************************************************************
+    Constructor.  Creates a Card object with a question and answer.
+    ******************************************************************/
+  public Card (String question, String answer) {
+    this.question = question;
+    this.answer = answer;
+    this.user_answer = ""; //the user's answer is initially nothing
+    tfquestion = setTFQuestion(); //check whether the question is a true or false question
+    probability = MAX; //the probability starts out at 1
+  }
+  
+   /*****************************************************************
+    Returns the question of the Card object.
+    ******************************************************************/
+  public String getQuestion() {
+    return question;
+  }
+  
+   /*****************************************************************
+    Helper method.  Takes a String as the parameter and sets the question of 
+    the Card object.
+    ******************************************************************/
+  private void setQuestion(String s) {
+    question = s;
+  }
+  
+   /*****************************************************************
+    Returns the answer of the Card object.
+    ******************************************************************/
+  public String getAnswer() {
+    return answer;
+  }
+  
+   /*****************************************************************
+    Helper.  Takes a String as the parameter and sets the answer of 
+    the Card object.
+    ******************************************************************/
+  private void setAnswer(String s) {
+    answer = s;
+  }
+  
+   /*****************************************************************
+    Returns the answer that the user enters, which is stored in the Card object.
+    ******************************************************************/
+  public String getUserAnswer() {
+    return user_answer;
+  }
+  
+   /*****************************************************************
+    Takes a String as the parameter and sets the user's answer of the
+    Card object.
+    ******************************************************************/
+  public void setUserAnswer(String s) {
+    user_answer = s;
+  }
+  
+   /*****************************************************************
+    Returns true iff the question is a true or false question.
+    ******************************************************************/
+  public boolean getTFQuestion() {
+    return tfquestion;
+  }
+  
+   /*****************************************************************
+    Helper method.  Returns true iff the question is a true or false question.
+    ******************************************************************/
+  private boolean setTFQuestion() {
+    //we know the question is a true or false question by its answer
+    return answer.equalsIgnoreCase("true") || answer.equalsIgnoreCase("false"); 
+  }
+  
+   /*****************************************************************
+    Returns the probability of the Card object.
+    ******************************************************************/
+  public double getProbability() {
+    return probability;
+  }
+  
+   /*****************************************************************
+    Helper.  Takes a double as a parameter and sets the probability of
+    the Card object.
+    ******************************************************************/
+  private void setProbability(double x) {
+    probability = x;
+  }
+  
+   /*****************************************************************
+    Returns true iff the user's answer is correct.
+    ******************************************************************/
+  public boolean isCorrect() {
+    //determine whether there is a match between the correct answer and what the user entered
+    return answer.equalsIgnoreCase(user_answer); 
+  }
+  
+   /*****************************************************************
+    Update the probabilities of each card based on whether the user's 
+    answer is correct.  If the answer is correct, then we will make it 
+    less probable for the question to appear in the testing deck.
+    We choose to generate random probabilities between 0.25 and 0.5
+    so that even if the user enters the card correctly, it may appear again.
+    If the answer is wrong then the probability stays the same. 
+    Therefore, the higher the probability of the card, the more we will test 
+    the user on that card.
+    ******************************************************************/
+  public void calculateProbability() {
+    if (isCorrect()) {
+      //create a Random number generator to generate a double between 0.25 and 0.50
+      Random generator = new Random();
+      double rand = (generator.nextInt(26) + 25)/100.;
+      
+      //makes the probability the product of the old probability and the random double
+      setProbability(this.probability*rand); 
+    }
+  }
+  
+  /*****************************************************************
+   Returns a String representation of the Card object.
+    ******************************************************************/
+  public String toString() {
+    return "\n***** Information About the Card *****" + "\nQuestion: " + question 
+      + "\nAnswer: " + answer + "\nResponse: " + user_answer +
+      "\nProbability: " + probability + "\n**************************************\n";
+  }
+  
+  /*****************************************************************
+    Compares two Card objects based on their probabilities.  Returns 
+    1 if the probability of the current card is greater than the 
+    other card. Returns 0 if the two probabilities are the same.
+    Returns -1 if the probability of the current card is less than 
+    the other card.
+    ******************************************************************/
+  public int compareTo(Card other) { 
+    //wrap the double and treat it as an object to use compareTo
+    Double x = this.probability; 
+    Double y = other.probability;
+    return x.compareTo(y);
+  }
+  
+  /*****************************************************************
+    Prints out whether or not the probability of the current card is
+    larger than the other card.
+    ******************************************************************/
+  public void compareToIter(Card other) {
+    if (this.compareTo(other) > 0) //if greater
+      System.out.println("The probability of first card is larger than the probability of the second.");
+    else if (this.compareTo(other) < 0)  //if less than
+      System.out.println("The probability of first card is less than the probability of the second.");
+    else //if equal
+      System.out.println("The probabilities of both cards are the same.");
+  }
+  
+  /*****************************************************************
+    We test our methods in this method. For now, we have hard-coded the user's answers
+    ******************************************************************/
+  public static void main (String[] args) {
+    //create object test0
+    System.out.println("\nHere is a new card:");
+    Card test0 = new Card("Bonjour", "Hello");
+    System.out.println(test0);
+    
+    System.out.println("Is this a true and false question? (FALSE): " + test0.getTFQuestion());
+    test0.setUserAnswer("Hello"); //set the user's answer equal to the correct answer
+    System.out.println("Now we assume that the user has entered the correct answer.");
+    test0.calculateProbability();
+    System.out.println("The probability should be lower. " + test0.getProbability());
+    
+    test0.setUserAnswer("Good-bye"); //set the user's answer so that it is wrong
+    System.out.println("Now we assume that the user has entered the incorrect answer.");
+    test0.calculateProbability();
+    System.out.println("The probability should stay the same. " + test0.getProbability());
+    
+    System.out.println("Now we assume that the user has entered the incorrect answer.");
+    test0.calculateProbability();
+    System.out.println("The probability should stay the same. " + test0.getProbability());
+    
+    
+    //create object test1
+    System.out.println("\nHere is a new card:");
+    Card test1 = new Card("Guten Tag", "Hello");
+    System.out.println(test1);
+    
+    System.out.println("Is this a true and false question? (FALSE): " + test1.getTFQuestion());
+    
+    test1.setUserAnswer("Hello"); //set the user's answer equal to the correct answer
+    System.out.println("Now we assume that the user has entered the correct answer.");
+    test1.calculateProbability();
+    System.out.println("The probability should be lower. " + test1.getProbability());
+    
+    test1.setUserAnswer("Good-bye"); //set the user's answer so that it is wrong
+    System.out.println("Now we assume that the user has entered the incorrect answer.");
+    test1.calculateProbability();
+    System.out.println("The probability should stay the same. " + test1.getProbability());
+    
+    test1.calculateProbability();
+    System.out.println("The probability should stay the same. " + test1.getProbability());
+    
+    test0.compareToIter(test1); //print out which of the two cards is larger 
+    
+    
+    //create object test2
+    System.out.println("\nHere is a new card:");
+    Card test2 = new Card("Is D4 a finite abelian group?", "false");
+    System.out.println(test2);
+    
+    System.out.println("Is this a true and false question? (TRUE): " + test2.getTFQuestion());
+    
+    System.out.println("Now we assume that the user has entered the incorrect answer.");
+    test2.setUserAnswer("true"); //set the user's answer so that it is wrong
+    test2.calculateProbability();
+    System.out.println("The probability should stay the same. " + test2.getProbability());
+    
+    System.out.println("Now we assume that the user has entered the correct answer.");
+    test2.setUserAnswer("false"); //set the user's answer equal to the correct answer
+    test2.calculateProbability();
+    System.out.println("The probability should be lower. " + test2.getProbability());
+    
+    test2.calculateProbability();
+    System.out.println("Now we assume that the user has entered the correct answer.");
+    System.out.println("The probability should be lower. " + test2.getProbability());
+    
+    test1.compareToIter(test2); //prints out which of the two cards is larger
+  } 
+}

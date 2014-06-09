@@ -1,0 +1,217 @@
+/********************************************************************
+  * FILENAME:  Deck.java  
+  * WHO:  Angela Gu and Grace Hu
+  * WHEN:  May 11, 2014
+  ********************************************************************/
+
+/********************************************************************
+  * WHAT:  The Deck class stores Card objects in a LinkedList. The testing deck is a
+  * copy of that LinkedList. The class also features a max heap, which helps us determine 
+  * the order of the cards in the testing deck. After the user answers a card's question, the 
+  * card's probability will be updated. Then the card will be removed from the testing deck 
+  * and added to the max heap, which will order all the cards with the highest 
+  * probability towards the top. Once the testing deck is empty,we will 
+  * replenish it by taking cards from the max heap that have probabilites greater than 
+  * that of the CUT_OFF, an arbitrary number. The testing deck continues to be replenished 
+  * until the probabilties of all cards are less than that of the CUT_OFF.
+  * ********************************************************************/
+
+import java.util.*; //Scanner
+import java.io.*;
+import javafoundations.*;
+
+public class Deck {
+  private String name; //name of the deck
+  private LinkedList<Card> deck;
+  private LinkedList<Card> testingDeck; //a copy of the original deck because it is destructive
+  private LinkedMaxHeap<Card> maxHeap; //cards with the greatest probabilities are at the top of the heap
+  private boolean fileExists; //indicates whether file is found, used mostly in CreatePanel.java
+  
+  /* Arbitrary probability at which we determine whether the user has mastered the card.  
+   * If the probability of the card is greater than the cut off then the card will appear
+   * in the testing deck.  Otherwise, it will not.*/
+  private final double CUT_OFF = 0.2;  
+  
+  /******************************************************************
+    Constructor. Creates an empty deck.
+    ******************************************************************/
+  public Deck() {
+    name = "";
+    deck = new LinkedList<Card>();
+    testingDeck = new LinkedList<Card>();
+    maxHeap = new LinkedMaxHeap<Card>();
+  }
+  
+  /******************************************************************
+    * Second constructor:
+    * Creates a new deck by reading in information from a .txt file.
+    * The first line in the file is the name of the deck.  From then 
+    * on, we have the question followed by the answer. 
+    * If the file does not exist, a message is printed.
+    *****************************************************************/
+  public Deck(String fileName) {
+    try {
+      deck = new LinkedList<Card>();
+      Scanner scan = new Scanner(new File(fileName)); //scan from file
+      name = scan.nextLine(); //read in name of deck
+      while(scan.hasNext()) {
+        addCard(new Card(scan.nextLine(), scan.nextLine())); //gets question and answer  
+      }
+      testingDeck = (LinkedList) deck.clone(); //make a copy
+      maxHeap = new LinkedMaxHeap<Card>();
+      fileExists = true;
+      
+    } catch(IOException error) { //file not found exception
+      System.out.println("The file was not found.");
+      fileExists = false;
+    }  
+  }
+  
+  /******************************************************************
+    Indicates whether the file the user enters exists. Used in CreatePanel.java
+    ******************************************************************/
+  public boolean isFileThere(){
+    return fileExists;
+  }
+  
+  /******************************************************************
+    Returns the name of the deck
+    ******************************************************************/
+  public String getName() {
+    return name;
+  }
+  
+  /******************************************************************
+    Sets the name of the deck
+    ******************************************************************/
+  public void setName(String s) {
+    name = s;
+  }
+  
+  /******************************************************************
+    Adds a new Card object to the end of the LinkedList
+    ******************************************************************/
+  public void addCard(Card c) {
+    deck.addLast(c); //add card to end of the linkedList;
+    
+  }
+  
+  /******************************************************************
+    Adds a new Card object to the end of the testing deck.
+    ******************************************************************/
+  public void addToTesting(Card c) {
+    testingDeck.addLast(c); //add to testing deck
+    
+  }
+  
+  /******************************************************************
+    If the user has manually inputted cards of a deck, we will save
+    that deck into a text file in the same format specified in the
+    second constructor. 
+    ******************************************************************/
+  public void saveDeck(String fileName) {
+    try {
+      PrintWriter writer = new PrintWriter(new File(fileName));
+      writer.println(name); //prints name of deck
+      int count = 0;
+      while(count != deck.size()) {
+        writer.println(deck.get(count).getQuestion()); //prints question 
+        writer.println(deck.get(count).getAnswer()); //prints answer on next line
+        count++;
+      }
+      writer.close();
+      
+    } catch(IOException error) { //catch file exceptions
+      System.out.println("There was an error saving the deck to a file");
+    }
+  }
+  
+  /******************************************************************
+    Prints out name of deck, each card, and number of cards in deck.
+    ******************************************************************/
+  public String toString(){ 
+    return "Name:\t" + name + "\nNumber of Cards in the Deck:\t" + deck.size() 
+      + "\nHere are the cards in the deck:\n" + deck;
+  }
+  
+  /******************************************************************
+    Prints the testing deck since our toString method prints out the 
+    cards in the original deck, and our testing deck's size is constantly changing
+    ******************************************************************/
+  public String testingDeckIter() { 
+    return "\nName:\t" + name + "\nNumber of Cards in the Deck:\t" + testingDeck.size() 
+      + "\nHere are the cards in the deck:\n" + testingDeck;
+  }
+  
+  /******************************************************************
+    returns the max heap
+    ******************************************************************/
+  public LinkedMaxHeap<Card> getMaxHeap() {
+    return maxHeap;
+  }
+  
+  /******************************************************************
+    This method is called after the user responds to the question.
+    The method updates the probability of the card, removes that card
+    from the linked list, and adds the card to the maxHeap. The maxHeap
+    itself will reorganize the cards so that the cards with the higest 
+    probabilties will be at the top.
+    ******************************************************************/
+  public void setMaxHeap() {
+    getCurrentCard().calculateProbability(); //updates probability of current card
+    maxHeap.add(testingDeck.poll()); //removes from linkedlist and adds to maxHeap
+  }
+  
+  /******************************************************************
+    returns the testing deck, which varies in size 
+    ******************************************************************/
+  public LinkedList<Card> getTestingDeck() {
+    return testingDeck;
+  }
+  
+  /******************************************************************
+    Replenishes the now empty testing deck with all the Card objects that
+    have a probability greater than the CUT_OFF. The Card with the highest
+    probability (answered incorrectly the most often) will be the first in 
+    the testing deck.
+    ******************************************************************/
+  public void setTestingDeck() {
+    while (!maxHeap.isEmpty() && maxHeap.getMax().getProbability() >= CUT_OFF)
+      testingDeck.add(maxHeap.removeMax());  
+  }
+  
+  /******************************************************************
+    returns the first card of the testing deck
+    ******************************************************************/
+  public Card getCurrentCard() {
+    return testingDeck.getFirst();
+  }
+  
+  /******************************************************************
+    returns the number of cards in the original deck, not testing deck.
+    ******************************************************************/
+  public int getSize() {
+    return deck.size();
+  }
+  
+  /******************************************************************
+    returns the number of cards in the testing deck at any given moment
+    ******************************************************************/
+  public int getTestingSize() {
+    return testingDeck.size();
+  }
+  
+  /******************************************************************
+    We test our methods below. The majority of our testing is in our
+    driver class, FlashCards.java.
+    ******************************************************************/
+  public static void main(String [] args) {
+    System.out.println("\nWe create a deck from the file, FrenchVerbs.txt");
+    Deck test0 = new Deck("FrenchVerbs.txt");
+    System.out.println(test0);
+    
+    
+    System.out.println("\nWe save this deck into a new file, TEMP.txt");
+    test0.saveDeck("TEMP.txt");
+  }
+}

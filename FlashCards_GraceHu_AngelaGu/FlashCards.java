@@ -1,0 +1,131 @@
+/********************************************************************
+  * FILENAME:  FlashCards.java  
+  * WHO:  Angela Gu and Grace Hu
+  * WHEN:  May 11, 2014
+  ********************************************************************/
+
+  /********************************************************************
+  * WHAT:  FlashCards.java is the driver class for Deck.java. Here, we test
+  * all the methods we implemented in the Deck class. 
+  * ********************************************************************/
+
+import java.util.*;
+import java.io.*;
+import javafoundations.*;
+
+public class FlashCards {
+  
+  public static void main(String [] args) {
+    //create a new deck
+    System.out.println("\nWe create a deck from the file, FrenchVerbs.txt");
+    Deck test0 = new Deck("FrenchVerbs.txt");
+    System.out.println(test0);
+    
+    System.out.println("\nWe will now hard code the user's answers to each card.");
+    test0.getTestingDeck().get(0).setUserAnswer("to accompany");
+    System.out.println(test0.getTestingDeck().get(0).getUserAnswer() 
+                         + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(0).getAnswer()
+                      + "\nIs the user's answer correct? We expect TRUE: "
+                      + test0.getTestingDeck().get(0).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(1).setUserAnswer("to help"); 
+    System.out.println(test0.getTestingDeck().get(1).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(1).getAnswer()
+                      + "\nIs the user's answer correct? We expect TRUE: "
+                      + test0.getTestingDeck().get(1).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(2).setUserAnswer("to sing");//incorrect
+    System.out.println(test0.getTestingDeck().get(2).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(2).getAnswer()
+                      + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(2).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(3).setUserAnswer("to dance");//incorrect
+    System.out.println(test0.getTestingDeck().get(3).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(3).getAnswer()
+                      + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(3).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(4).setUserAnswer("to accompany");//incorrect
+    System.out.println(test0.getTestingDeck().get(4).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(4).getAnswer()
+                      + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(4).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(5).setUserAnswer("to walk");//incorrect
+    System.out.println(test0.getTestingDeck().get(5).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(5).getAnswer()
+                      + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(5).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(6).setUserAnswer("to bring");//incorrect
+    System.out.println(test0.getTestingDeck().get(6).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(6).getAnswer()
+                         + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(6).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(7).setUserAnswer("to buy"); //incorrect
+    System.out.println(test0.getTestingDeck().get(7).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(7).getAnswer()
+                         + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(7).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(8).setUserAnswer("to help");//incorrect
+    System.out.println(test0.getTestingDeck().get(8).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(8).getAnswer()
+                         + "\nIs the user's answer correct? We expect FALSE: "
+                      + test0.getTestingDeck().get(8).isCorrect() + "\n");
+    
+    test0.getTestingDeck().get(9).setUserAnswer("to walk");
+    System.out.println(test0.getTestingDeck().get(9).getUserAnswer()
+                       + "\tCORRECT ANSWER: " + test0.getTestingDeck().get(9).getAnswer()
+                      + "\nIs the user's answer correct? We expect TRUE: "
+                      + test0.getTestingDeck().get(9).isCorrect() + "\n");
+    
+    
+    
+    System.out.println("\nWe will now calculate the probability of each card.");
+    for(int i = 0; i < test0.getSize(); i++)
+      test0.getTestingDeck().get(i).calculateProbability();
+
+    System.out.println("\nHere are the probabilities of each card.");
+    for(int i = 0; i < test0.getSize(); i++)
+      System.out.println("\n" + test0.getTestingDeck().get(i) 
+                           + test0.getTestingDeck().get(i).getProbability());
+   
+    while(!test0.getTestingDeck().isEmpty()) 
+      test0.setMaxHeap();
+    System.out.println("\n\nWe have added each card to the max heap. "
+                         + "We expect the same number of cards we started with. \n"
+                         + "The proabilities of the cards will be updated again because our setMaxHeap()"
+                         + "method invokes the calculateProbability() method. \nHere is the max heap:\n" 
+                         + test0.getMaxHeap());
+    
+    System.out.println("Here are the cards in the deck with their new probabilities."
+                         + " \nWe want all the cards in our original deck to be printed.\n\n" + test0);
+    
+    test0.setTestingDeck(); //updates our testing deck
+    test0.setName("Updated list of French Verbs");
+    System.out.println("\n\nHere is our updated testing deck, which may have reduced in size. "
+                       + "\nThe cards will be presented in the order of highest probability to the lowest."
+                       + "\nOnly cards with a probability greater than 0.2 will appear now:\n"
+                       + test0.testingDeckIter());   
+    
+    System.out.println("\n\nNow we will add a card to our testing deck, which will also update our"
+                         + " original deck. \nThe card's question is: Is this added card in the testing"
+                      + " deck? Answer: Yes");
+    test0.addToTesting(new Card("Is this added card in the testing deck?", "Yes"));
+    System.out.println("Here is our updated testing deck:\n" + test0.testingDeckIter());
+    
+    
+    System.out.println("\n\nThe first card is: " + test0.getCurrentCard());
+    
+    System.out.println("\n\nWe will now add a new card to our original deck."
+                         + "\nQuestion: Is this a French verb card?\nAnswer: Yes");
+    test0.addCard(new Card("Is this a French Verb card?", "Yes"));
+    System.out.println("We print our original deck, which should now have 11 cards.\n\n\n" + test0);
+    
+    
+    
+  } 
+}

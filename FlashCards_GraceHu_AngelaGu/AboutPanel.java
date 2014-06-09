@@ -1,0 +1,84 @@
+/********************************************************************
+  * FILENAME:  AboutPanel.java  
+  * WHO:  Angela Gu and Grace Hu
+  * WHEN:  May 11, 2014
+  ********************************************************************/
+
+/********************************************************************
+  * WHAT:  The About Panel is the first tab in the GUI. It contains the 
+  * title of the program, QuizUp!, as well as an image and basic directions
+  * for how to use the program.
+  * ********************************************************************/
+
+import java.awt.*;
+import javax.swing.*;
+
+public class AboutPanel extends JPanel { 
+  private JPanel introPanel, imagePanel, blurbPanel; //creates 3 panels for the 3 sections 
+  
+  public AboutPanel() {
+    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));  //overall layout follows a vertical axis
+    setBackground (new Color(173, 244, 230));
+    setPreferredSize(new Dimension(800,700));
+    setBorder(BorderFactory.createMatteBorder(35,35,35,35, new Color(173, 244, 230))); //creates blue borders
+    
+    //create labels
+    JLabel welcomeLabel 
+      = new JLabel ("<html><center><i>Welcome to</i><br><b>QuizUp!</b></br></center></html>"); //create welcome sign
+    welcomeLabel.setFont(new Font("Georgia", Font.PLAIN, 90));
+    
+    JLabel pic = new JLabel(); //create picture
+    ImageIcon cardsImg = createImageIcon("Images/threeCards.gif","colorful flashcards");
+    pic.setIcon(cardsImg);
+    
+    JLabel directionLabel 
+      = new JLabel ("<html><center><b>Exams</b> coming up? Have no fear!<br> "
+                    + "QuizUp! easily allows you to create and test your own deck of flashcards.<br> "                  
+                    + "Select the <b><i>Create Deck</b></i> tab to compile your deck of flashcards." 
+                    + "<br>In the <b><i>Test Yourself</b></i> tab, we will quiz you until you master your material."
+                    +"<br>Happy studying!</center></html>");  //create directions
+    directionLabel.setFont(new Font("Palatino Linotype", Font.PLAIN, 20));
+    
+    JLabel creditsLabel = new JLabel("<html><center><br><br><br>By Grace Hu and Angela Gu ~ " 
+                      + "Spring 2014</center></html>");
+    creditsLabel.setFont(new Font("Palatino Linotype", Font.PLAIN, 13));
+    
+    //create and organize information into the three panels
+    JPanel introPanel = new JPanel(); //create intro panel
+    introPanel.add (welcomeLabel);
+    introPanel.setBackground (new Color(173, 244, 230));
+    
+    JPanel imagePanel = new JPanel(); //create picture panel
+    imagePanel.setBackground (new Color(173, 244, 230));
+    imagePanel.add(pic);
+    
+    JPanel blurbPanel = new JPanel();  //create directions panel
+    blurbPanel.add (directionLabel);
+    blurbPanel.setBackground (new Color(173, 244, 230));
+    
+    JPanel creditsPanel = new JPanel();  //create directions panel
+    creditsPanel.add (creditsLabel);
+    creditsPanel.setBackground (new Color(173, 244, 230));
+    
+    
+    //add all the three panels together in box layout format
+    add(introPanel);
+    add(Box.createVerticalGlue());
+    add(imagePanel);
+    add(Box.createVerticalGlue());
+    add(blurbPanel);
+    add(Box.createVerticalGlue());
+    add(creditsPanel);
+  }
+  
+  //this method reads the images from its file and displays it
+  private static ImageIcon createImageIcon(String path, String description) {
+    java.net.URL imgURL = Deck.class.getResource(path);
+    if (imgURL != null) {
+      return new ImageIcon(imgURL, description);
+    } else {
+      System.err.println("Couldn't find file: " + path);
+      return null;
+    }
+  }
+}

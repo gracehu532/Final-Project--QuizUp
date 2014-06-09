@@ -1,0 +1,81 @@
+Welcome to DrJava.  Working directory is /Users/gracehu/Desktop/grace version
+> run Deck
+
+We create a deck from the file, FrenchVerbs.txt
+Name:	French Verbs
+Number of Cards in the Deck:	10
+Here are the cards in the deck:
+[
+***** Information About the Card *****
+Question: accompagner
+Answer: to accompany
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: aider
+Answer: to help
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: marcher
+Answer: to walk
+Response: 
+Probability: 1.0
+**************************************
+]
+
+We save this deck into a new file, TEMP.txt
+> 

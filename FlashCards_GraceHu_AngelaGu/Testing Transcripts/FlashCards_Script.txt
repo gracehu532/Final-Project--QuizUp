@@ -1,0 +1,592 @@
+Welcome to DrJava.  Working directory is /Users/gracehu/Desktop/grace version
+> run FlashCards
+
+We create a deck from the file, FrenchVerbs.txt
+Name:	French Verbs
+Number of Cards in the Deck:	10
+Here are the cards in the deck:
+[
+***** Information About the Card *****
+Question: accompagner
+Answer: to accompany
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: aider
+Answer: to help
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: 
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: marcher
+Answer: to walk
+Response: 
+Probability: 1.0
+**************************************
+]
+
+We will now hard code the user's answers to each card.
+to accompany	CORRECT ANSWER: to accompany
+Is the user's answer correct? We expect TRUE: true
+
+to help	CORRECT ANSWER: to help
+Is the user's answer correct? We expect TRUE: true
+
+to sing	CORRECT ANSWER: to like
+Is the user's answer correct? We expect FALSE: false
+
+to dance	CORRECT ANSWER: to bring
+Is the user's answer correct? We expect FALSE: false
+
+to accompany	CORRECT ANSWER: to sing
+Is the user's answer correct? We expect FALSE: false
+
+to walk	CORRECT ANSWER: to dance
+Is the user's answer correct? We expect FALSE: false
+
+to bring	CORRECT ANSWER: to close
+Is the user's answer correct? We expect FALSE: false
+
+to buy	CORRECT ANSWER: to play
+Is the user's answer correct? We expect FALSE: false
+
+to help	CORRECT ANSWER: to wash
+Is the user's answer correct? We expect FALSE: false
+
+to walk	CORRECT ANSWER: to walk
+Is the user's answer correct? We expect TRUE: true
+
+
+We will now calculate the probability of each card.
+
+Here are the probabilities of each card.
+
+
+***** Information About the Card *****
+Question: accompagner
+Answer: to accompany
+Response: to accompany
+Probability: 0.47
+**************************************
+0.47
+
+
+***** Information About the Card *****
+Question: aider
+Answer: to help
+Response: to help
+Probability: 0.49
+**************************************
+0.49
+
+
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: to dance
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: to accompany
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: to walk
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: to bring
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: to buy
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: to help
+Probability: 1.0
+**************************************
+1.0
+
+
+***** Information About the Card *****
+Question: marcher
+Answer: to walk
+Response: to walk
+Probability: 0.29
+**************************************
+0.29
+
+
+We have added each card to the max heap. We expect the same number of cards we started with. 
+The proabilities of the cards will be updated again because our setMaxHeap()method invokes the calculateProbability() method. 
+Here is the max heap:
+
+***** Information About the Card *****
+Question: accompagner
+Answer: to accompany
+Response: to accompany
+Probability: 0.17859999999999998
+**************************************
+
+
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: to buy
+Probability: 1.0
+**************************************
+
+
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: to help
+Probability: 1.0
+**************************************
+
+
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: to dance
+Probability: 1.0
+**************************************
+
+
+***** Information About the Card *****
+Question: marcher
+Answer: to walk
+Response: to walk
+Probability: 0.1334
+**************************************
+
+
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: to accompany
+Probability: 1.0
+**************************************
+
+
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+
+
+***** Information About the Card *****
+Question: aider
+Answer: to help
+Response: to help
+Probability: 0.1862
+**************************************
+
+
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: to walk
+Probability: 1.0
+**************************************
+
+
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: to bring
+Probability: 1.0
+**************************************
+
+
+Here are the cards in the deck with their new probabilities. 
+We want all the cards in our original deck to be printed.
+
+Name:	French Verbs
+Number of Cards in the Deck:	10
+Here are the cards in the deck:
+[
+***** Information About the Card *****
+Question: accompagner
+Answer: to accompany
+Response: to accompany
+Probability: 0.17859999999999998
+**************************************
+, 
+***** Information About the Card *****
+Question: aider
+Answer: to help
+Response: to help
+Probability: 0.1862
+**************************************
+, 
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: to dance
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: to accompany
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: to walk
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: to bring
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: to buy
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: to help
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: marcher
+Answer: to walk
+Response: to walk
+Probability: 0.1334
+**************************************
+]
+
+
+Here is our updated testing deck, which may have reduced in size. 
+The cards will be presented in the order of highest probability to the lowest.
+Only cards with a probability greater than 0.2 will appear now:
+
+Name:	Updated list of French Verbs
+Number of Cards in the Deck:	7
+Here are the cards in the deck:
+[
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: to walk
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: to help
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: to bring
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: to dance
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: to accompany
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: to buy
+Probability: 1.0
+**************************************
+]
+
+
+Now we will add a card to our testing deck, which will also update our original deck. 
+The card's question is: Is this added card in the testing deck? Answer: Yes
+Here is our updated testing deck:
+
+Name:	Updated list of French Verbs
+Number of Cards in the Deck:	8
+Here are the cards in the deck:
+[
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: to walk
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: to help
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: to bring
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: to dance
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: to accompany
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: to buy
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: Is this added card in the testing deck?
+Answer: Yes
+Response: 
+Probability: 1.0
+**************************************
+]
+
+
+The first card is: 
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+
+
+
+We will now add a new card to our original deck.
+Question: Is this a French verb card?
+Answer: Yes
+We print our original deck, which should now have 11 cards.
+
+
+Name:	Updated list of French Verbs
+Number of Cards in the Deck:	11
+Here are the cards in the deck:
+[
+***** Information About the Card *****
+Question: accompagner
+Answer: to accompany
+Response: to accompany
+Probability: 0.17859999999999998
+**************************************
+, 
+***** Information About the Card *****
+Question: aider
+Answer: to help
+Response: to help
+Probability: 0.1862
+**************************************
+, 
+***** Information About the Card *****
+Question: aimer
+Answer: to like
+Response: to sing
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: apporter
+Answer: to bring
+Response: to dance
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: chanter
+Answer: to sing
+Response: to accompany
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: danser
+Answer: to dance
+Response: to walk
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: fermer
+Answer: to close
+Response: to bring
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: jouer
+Answer: to play
+Response: to buy
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: laver
+Answer: to wash
+Response: to help
+Probability: 1.0
+**************************************
+, 
+***** Information About the Card *****
+Question: marcher
+Answer: to walk
+Response: to walk
+Probability: 0.1334
+**************************************
+, 
+***** Information About the Card *****
+Question: Is this a French Verb card?
+Answer: Yes
+Response: 
+Probability: 1.0
+**************************************
+]
+> 

@@ -1,0 +1,39 @@
+/********************************************************************
+  * FILENAME:  FlashCardsGUI.java  
+  * WHO:  Angela Gu and Grace Hu
+  * WHEN:  May 11, 2014
+  ********************************************************************/
+
+  /********************************************************************
+  * WHAT:  This class sets up the initial GUI frame containing tabbed panes. 
+  * Our GUI will have 3 panels: an About Panel, a Create Panel, and a Quiz 
+  * Yourself panel.  The class implements some default functions of our GUI
+  * ********************************************************************/
+
+import javax.swing.*;
+
+public class FlashcardsGUI
+{
+  
+   public static void main (String[] args)
+   {
+      JFrame frame = new JFrame ("QuizUp!"); //name of window
+      frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE); //default characteristic
+      
+      Deck pile = new Deck(); //creates new Deck object]
+      //QuizPanel object takes in pile so that all data is stored  
+      QuizPanel quiz = new QuizPanel(pile); 
+      
+      //create the three panels
+      JTabbedPane tp = new JTabbedPane();
+      tp.addTab ("About", new AboutPanel());
+      tp.addTab ("Create Deck", new CreatePanel(pile, quiz)); 
+      tp.addTab ("Quiz Yourself", quiz);
+      
+      
+      frame.getContentPane().add(tp);
+
+      frame.pack();
+      frame.setVisible(true);
+   }
+}
